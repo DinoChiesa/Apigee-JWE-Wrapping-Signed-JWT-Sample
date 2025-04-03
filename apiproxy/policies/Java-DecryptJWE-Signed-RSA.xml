@@ -1,0 +1,10 @@
+<JavaCallout name="Java-DecryptJWE-Signed-RSA">
+  <Properties>
+    <Property name='key-encryption'>RSA-OAEP-256</Property>
+    <Property name='debug'>true</Property>
+    <Property name='source'>request.formparam.JWE</Property>
+    <Property name='private-key'>{private.decrypting_key}</Property>
+  </Properties>
+  <ClassName>com.google.apigee.callouts.VerifyJwe</ClassName>
+  <ResourceURL>java://apigee-callout-encrypted-jwt-20241203.jar</ResourceURL>
+</JavaCallout>

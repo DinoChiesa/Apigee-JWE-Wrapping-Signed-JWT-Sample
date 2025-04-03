@@ -1,0 +1,65 @@
+<AssignMessage name='AM-Demo-Variables'>
+
+  <AssignVariable>
+    <Name>apigee-issuer</Name>
+    <Template>apigee:{organization.name}:{environment.name}:{apiproxy.name}</Template>
+  </AssignVariable>
+
+  <!-- for signing / verifying keys -->
+  <AssignVariable>
+    <Name>jwks_uri</Name>
+    <Value>https://jwks-service.dchiesa.demo.altostrat.com/.well-known/jwks.json</Value>
+  </AssignVariable>
+
+  <AssignVariable>
+    <Name>encrypting_key</Name>
+    <Value>
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAopt8tLsQAHzKUHFd1v+Q
+      EoigX5aVn0z3DRfw3X1e7UxKUGFkVb8BB2XB1PVLSnpX3Y7deBfMRMmh4AZf9Fn0
+      yuYiTQrGr8atafgIziPfxd4W/WdPOAl8aXg7YtYloC89V1h5y39PXbDFTxajlnpI
+      fUhGU7js36S5T9YRBrLT1l5OksWGSOOoVGDL/e/NVkJRZ/vRYAmUKEm2jyYLc+sR
+      pziGYK59UbfbynCgwzspsOdQaJnjSPTjSGha+EciUqZFY0ziY0+D3IlWQ4NWVXRh
+      s7lw5yuzLy9R3ZCwkMWkQ/0607N8dU3/KK6Lpuz76ycNw+D1Xrn6ZrSScr4q8B1y
+      2QIDAQAB
+      -----END PUBLIC KEY-----
+    </Value>
+  </AssignVariable>
+
+  <AssignVariable>
+    <!-- For demonstration purposes only.  Never hard-code private keys in
+         configuration, for production systems. -->
+    <Name>private.decrypting_key</Name>
+    <Value>
+      -----BEGIN PRIVATE KEY-----
+      MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCim3y0uxAAfMpQ
+      cV3W/5ASiKBflpWfTPcNF/DdfV7tTEpQYWRVvwEHZcHU9UtKelfdjt14F8xEyaHg
+      Bl/0WfTK5iJNCsavxq1p+AjOI9/F3hb9Z084CXxpeDti1iWgLz1XWHnLf09dsMVP
+      FqOWekh9SEZTuOzfpLlP1hEGstPWXk6SxYZI46hUYMv9781WQlFn+9FgCZQoSbaP
+      Jgtz6xGnOIZgrn1Rt9vKcKDDOymw51BomeNI9ONIaFr4RyJSpkVjTOJjT4PciVZD
+      g1ZVdGGzuXDnK7MvL1HdkLCQxaRD/TrTs3x1Tf8oroum7PvrJw3D4PVeufpmtJJy
+      virwHXLZAgMBAAECggEAEwJlXkV+FeiAyE2wgDlpMNl7EiGrBS/8s7GoTWRiLBCe
+      oW35SlLlfmVldw1kC2VpDzQr7OWvUh1WSLfGEO1RQkUMHoCTgKoTzM8bzGmCOAIC
+      IwaoSq9FNZlCLAhH5sWPAL6Non4UG6pWLqxBXI6YGdlQq2nzeyOpLE2kuOk//Y/h
+      zxVoNCRFc7ne4gsJZYSFD2wu0oDCb1ecZQaVnek3mkTUkg+p0qtzv/5S+QDS0iLN
+      Uoz8znnzcN9ora2ZQdMTSjF15+lxgYMB51/hJkmUO7vdVtOQ8zr9smRMc6Y0nyP6
+      1s18zQ71WwhKI392ag2Kvy4ghgCVkz9QlDbfjP4gBwKBgQDk+iG+DK9ronMYlPIJ
+      ZRNojrM3i1ev4OUWU6mad5oT+D+Hm3ZvK3NXj6wm53thap9Syxz0M9JTQdZ0Gt88
+      1CGd6J8DAYa44UfBSUTJ3My/ZaZqQL2jB5lJ5xrs8ruiF8yuWRhqMqrOgaJoKA0q
+      aEQeQxHwX7kHzstjga2Uv2ibYwKBgQC1zDCpdZweFosgW9h6Q0im/fa+3SVWqu5q
+      phOvKzwj6MwowiulWkRebHOMglLoxVVKcECGyFMh4gUtg/bo561U6+B5eVzivX2D
+      MEge9/h2GtByTZXzMQ+TiUOIG+ugU0wQ0lbrnZ1Yct3r734Am4fW5zWkrStuQ3pS
+      dacGB+KzkwKBgAhuQUHLG8Zdw9ka2tKHuzA1WNnpsn/SSv0IdY0vbCfiEwy+J50u
+      P1/w9Ui1azCKCXW17sn7Anp4SRobRy7pLJew0fH9Y2V5Pfga54J7M7q0Vm1BFvpi
+      tD0pWi9xPIFaWPnuY9y9ItbZpQ4qs1llX2Sx2X49OAXWklyGkMqSRZq7AoGAZgpb
+      UfKKkzTSGHKU+mMjt1+bDJxyJchBlCjtqYeZ9Qno9gOundwhveIfpUFNKgwBCIwj
+      G8P7LWyAvYBxqV7Ion7W+zfMlBQKDAWgpYlHs3rvfwjfXqYt+QC1oAMT6WR3sIVv
+      dkZ8l7W5rIE7dznVMCGMsYbldrl3Qit5eWAZtfMCgYBvLj3XIoC6bbCa8+0vijXL
+      J1G1KFlD0U8+rtq4DhvqAbw+qMpQLvSHAWGM8a76x7Ljgk2YR6T/Vxj/8/T6PbTW
+      qy6qjKLlvpzF3rCXUgkveOueDyi2Dt3MSFgfUGezvP5b7S7qq4mSN9cJW6SN3n3r
+      AAGB1oQ4QffYOU0z1cjHyw==
+      -----END PRIVATE KEY-----
+    </Value>
+  </AssignVariable>
+
+</AssignMessage>

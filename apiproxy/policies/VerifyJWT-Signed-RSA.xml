@@ -1,0 +1,12 @@
+<VerifyJWT name='VerifyJWT-Signed-RSA'>
+  <Algorithm>RS256</Algorithm>
+  <Source>jwe_payload</Source>
+  <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+  <PublicKey>
+    <JWKS uriRef="jwks_uri"/>
+  </PublicKey>
+
+  <!-- verify that it is the issuer we expect -->
+  <Issuer ref='apigee-issuer'/>
+
+</VerifyJWT>

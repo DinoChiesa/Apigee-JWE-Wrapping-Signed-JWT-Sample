@@ -1,0 +1,139 @@
+<ProxyEndpoint name="endpoint1">
+  <Description>demonstration of verifying a signed JWT that is wrapped in a JWE</Description>
+
+  <HTTPProxyConnection>
+    <BasePath>/verify-signed-jwt-wrapped-in-jwe</BasePath>
+  </HTTPProxyConnection>
+
+  <FaultRules>
+    <FaultRule name='jwt_operation_error'>
+      <Step>
+        <Name>AM-JWT-Operation-Error</Name>
+      </Step>
+      <Condition>ejwt_error != null</Condition>
+    </FaultRule>
+    <FaultRule name='jwe_operation_error'>
+      <Step>
+        <Name>AM-JWE-Operation-Error</Name>
+      </Step>
+      <Condition>jwe_error != null</Condition>
+    </FaultRule>
+  </FaultRules>
+
+  <DefaultFaultRule name="default-fault-rule">
+    <Step>
+      <Name>AM-Inject-Proxy-Revision-Header</Name>
+    </Step>
+    <AlwaysEnforce>true</AlwaysEnforce>
+  </DefaultFaultRule>
+
+  <PreFlow>
+    <Request>
+      <Step>
+        <Name>AM-Demo-Variables</Name>
+      </Step>
+      <Step>
+        <Name>SC-Get-RSA-Key-Ids</Name>
+      </Step>
+      <Step>
+        <Name>AM-Select-RSA-Key-Id</Name>
+      </Step>
+      <Step>
+        <Name>SC-Get-RSA-Key</Name>
+      </Step>
+      <Step>
+        <Name>AM-Extract-Public-and-Private-Keys</Name>
+      </Step>
+    </Request>
+    <Response>
+      <Step>
+        <Name>AM-Clean-Request-Headers</Name>
+      </Step>
+      <Step>
+        <Name>AM-Inject-Proxy-Revision-Header</Name>
+      </Step>
+    </Response>
+  </PreFlow>
+
+  <Flows>
+    <Flow name="generate">
+      <Description>generate a signed JWT, then encrypt in via JWE</Description>
+      <Request>
+        <Step>
+          <!-- first generate the signed JWT -->
+          <Name>GenerateJWT-Signed-RSA</Name>
+        </Step>
+        <Step>
+          <!-- now generate a JWE wrapping that JWT -->
+          <Name>Java-GenerateJWE-wrapping-JWT-via-JWKS-RSA</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Success-Generate-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/generate") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="verify">
+      <Description>decrypt a JWE, then verify the signed JWT that was within it</Description>
+      <Request>
+        <Step>
+          <Condition>request.formparam.JWE = null</Condition>
+          <Name>RF-Invalid-Request</Name>
+        </Step>
+        <Step>
+          <!-- first decrypt the JWE -->
+          <Name>Java-DecryptJWE-Signed-RSA</Name>
+        </Step>
+        <Step>
+          <!-- now verify the signature on the signed JWT that was the output of the above -->
+          <Name>VerifyJWT-Signed-RSA</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Success-Verify-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/verify") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="private_key">
+      <Description>retrieve the private key (for demo purposes only)</Description>
+      <Request>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-PrivateKey-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/private_key") and (request.verb = "GET")</Condition>
+    </Flow>
+
+    <Flow name="public_key">
+      <Description>retrieve the public key</Description>
+      <Request>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-PublicKey-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/public_key") and (request.verb = "GET")</Condition>
+    </Flow>
+
+    <Flow name='unknown'>
+      <Description>unknown request</Description>
+      <Request>
+        <Step>
+          <Name>RF-Unknown-Request</Name>
+        </Step>
+      </Request>
+    </Flow>
+  </Flows>
+
+  <RouteRule name="Loopback"/>
+
+</ProxyEndpoint>

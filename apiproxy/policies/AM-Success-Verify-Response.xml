@@ -1,0 +1,8 @@
+<AssignMessage name='AM-Success-Verify-Response'>
+  <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+  <Set>
+    <Payload contentType='application/json'>{jwt.VerifyJWT-Signed-RSA.payload-json}</Payload>
+    <StatusCode>200</StatusCode>
+    <ReasonPhrase>OK</ReasonPhrase>
+  </Set>
+</AssignMessage>

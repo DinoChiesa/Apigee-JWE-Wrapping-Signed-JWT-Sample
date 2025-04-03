@@ -1,0 +1,19 @@
+<ServiceCallout name='SC-Get-RSA-Key'>
+  <Request variable='simpleGetRequest'>
+    <Set>
+      <Verb>GET</Verb>
+      <Path>/keys/{my_selected_key_id}</Path>
+    </Set>
+  </Request>
+  <Response>keyResponse</Response>
+  <HTTPTargetConnection>
+    <SSLInfo>
+      <Enabled>true</Enabled>
+      <IgnoreValidationErrors>false</IgnoreValidationErrors>
+    </SSLInfo>
+    <Properties>
+      <Property name='success.codes'>2xx</Property>
+    </Properties>
+    <URL>https://jwks-service.dchiesa.demo.altostrat.com/</URL>
+  </HTTPTargetConnection>
+</ServiceCallout>
