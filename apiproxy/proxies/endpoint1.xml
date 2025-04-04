@@ -85,7 +85,7 @@
         </Step>
         <Step>
           <!-- first decrypt the JWE -->
-          <Name>Java-DecryptJWE-Signed-RSA</Name>
+          <Name>Java-DecryptJWE</Name>
         </Step>
         <Step>
           <!-- now verify the signature on the signed JWT that was the output of the above -->

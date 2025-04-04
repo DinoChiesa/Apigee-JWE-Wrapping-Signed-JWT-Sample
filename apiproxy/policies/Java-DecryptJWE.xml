@@ -1,4 +1,4 @@
-<JavaCallout name="Java-DecryptJWE-Signed-RSA">
+<JavaCallout name="Java-DecryptJWE">
   <Properties>
     <Property name='key-encryption'>RSA-OAEP-256</Property>
     <Property name='debug'>true</Property>
